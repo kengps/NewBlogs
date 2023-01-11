@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path')
-const mongoDB = require('../models/mongoose')
+const Blogs = require('../models/mongoose')
 
 const multer = require('multer');
 
@@ -10,13 +10,13 @@ const multer = require('multer');
 
 // const Storage = multer.diskStorage({
 //         destination:function(req, file , callback){
-//                 callback(null,"../../public/images/imgBlogs") //* ตำแหน่งจัดเก็บไฟล์
+//                 callback(null, "../../frontend/public/images/home"); //* ตำแหน่งจัดเก็บไฟล์
 //         },filename:function(req, file , callback){
 //             callback(null , Date.now() + '.jpg') //* กำหนดชื่อไฟล์ ไม่ให้ซ้ำกัน โดยใช้ Date .
 //         }
 // })
  
-// //* เริ่มต้นทำการ upload
+// // //* เริ่มต้นทำการ upload
 
 // const upload = multer({storage: Storage})
 
@@ -27,12 +27,9 @@ const multer = require('multer');
 
 
 router.get('/', (req, res) =>{
-    const isName = [
-        {name:'123', price:'500'},
-        {name:'456', price:'5000'},
-        {name:'789', price:'50000'},
-    ]
-    res.render('homepage', {data:isName} )
+    Blogs.find().exec((err, doc) => {
+      res.render("homepage", { data: doc });
+    });
 
 })
 
@@ -44,22 +41,21 @@ router.get('/manage', (req, res) =>{
 router.post('/insert',(req, res) =>{
 
     //* Creating a new instance of the mongoDB model. สร้างข้อมูล data ใหม่ ที่มาจากการส่งจาก Form 
-    let data = new mongoDB({
+    let data = new Blogs({
         name: req.body.name,
-       // img:  req.body.name,
+       // img:  req.file.filename,
         description:req.body.description
     })
     
 
     //* A function that is being called from the mongoDB model.  นำข้อมูลใหม่ที่ได้ บันทึกไปยัง Mongoose
-    mongoDB.sendBlogs(data , (err) => {
-        if(err) {
-            console.log(`เกิดข้อผิดพลาด ${err}`);
+    Blogs.sendBlogs(data, (err) => {
+      if (err) {
+        console.log(`เกิดข้อผิดพลาด ${err}`);
+      }
 
-        }
-
-        res.redirect('/')
-    })
+      res.redirect("/");
+    });
    })
 
 
