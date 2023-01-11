@@ -1,0 +1,23 @@
+{
+  "name": "14-miniproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "LIFF.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kengps/NewBlogs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kengps/NewBlogs/issues"
+  },
+  "homepage": "https://github.com/kengps/NewBlogs#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}

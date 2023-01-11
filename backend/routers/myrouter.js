@@ -73,8 +73,4 @@ router.get('/path/:id', (req, res) =>{
 })
 
 
-router.get('/12' , (req, res) => {
-
-})
-
 module.exports = router;
